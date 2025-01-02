@@ -33,46 +33,44 @@ By using three variable K-Map, we can get the simplified expression for next sta
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 
 **Procedure**
+1. Type the program in Quartus software.
+2. Compile and run the program.
+3. Generate the RTL schematic and save the logic diagram.
+4. Create nodes for inputs and outputs to generate the timing diagram.
+5. For different input combinations generate the timing diagram.
 
-1.Type the program in Quartus software.
 
-2.Compile and run the program.
-
-3.Generate the RTL schematic and save the logic diagram.
-
-4.Create nodes for inputs and outputs to generate the timing diagram.
-
-5.For different input combinations generate the timing diagram.
 
 **PROGRAM**
 ```
-module EXP_6(q, q_bar, s,r, clk, reset);//SR Flip Flop Behavioral Level using ‘case’ 
-  input s,r,clk, reset;
-  output reg q;
-  output q_bar;
- 
-  always@(posedge clk) begin // for synchronous reset
-    if(!reset)       
-			q <= 0;
-    else 
-  begin
-      case({s,r})       
-	     2'b00: q <= q;    // No change
-        2'b01:q<=1'b0;   // Write logic for reset
-        2'b10:q<=1'b1;   // Write logic for set
-        2'b11:q<=1'bx;   // Write logic for Invalid state
-      endcase
-    end
-  end
-  assign q_bar = ~q;
+Program for flipflops and verify its truth table in quartus using Verilog programming.
+Developed by: Titus ratna kumar karivella
+RegisterNumber:24002273
+```
+```
+module sr(S,R,clk,Q,Qbar);
+input S,R,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin 
+Q=S|((~R)&Q);
+Qbar=R|((~S)&(Qbar));
+end 
 endmodule
+
 ```
 
 **RTL LOGIC FOR FLIPFLOPS**
-![image](https://github.com/user-attachments/assets/3ecf2d17-d0f5-4af7-9f02-295e30224e8d)
+![image](https://github.com/user-attachments/assets/22c88b5d-c0ca-4e19-a7cf-bac7f789ac0b)
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-![image](https://github.com/user-attachments/assets/01613a18-c20e-41df-b390-7b6a73b559b0)
+
+![Screenshot 2024-12-03 103334](https://github.com/user-attachments/assets/4a80e052-37d3-4796-bb90-77ff6ad99e93)
+
 
 **RESULTS**
-RESULTS : The observation of the simulation results and confirm the successful execution of the program.
+
+SR flipflop using verilog and validating their functionality using their functional tables are verified
